@@ -1,3 +1,4 @@
+
 // variables
 const form = document.querySelector("#formProducto");
 const inputProducto = document.querySelector('#Producto')
@@ -29,7 +30,7 @@ function eliminarProducto(producto) {
     const indice = productos.indexOf(producto);
     if (indice !== -1) {
         productos.splice(indice, 1);
-        localStorage.setItem('productos', JSON.stringify(productos)); // Actualiza localStorage
+        localStorage.setItem('productos', JSON.stringify(productos));
         refrescar();
     }
 }
@@ -53,8 +54,24 @@ form.addEventListener("submit", e => {
         agregarProductoALista(prod);
         inputProducto.value = "";
         inputPrecio.value = "";
+
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Tu producto se agrego correctamente!',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
     } else {
-        alert("Por favor, ingresa un producto y un precio válido.");
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: "Por favor, ingresa un producto y un precio válido.",
+            showConfirmButton: false,
+            timer: 1500
+        })
+    
     }
     refrescar()
 });
@@ -89,11 +106,8 @@ function agregarProductoALista(producto) {
     li.appendChild(botonEliminar); 
 
     return li;
+    refrescar()
 }
-
-
-
-
 
 
 

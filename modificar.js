@@ -8,8 +8,9 @@ const formModificarPrecio = document.querySelector("#formModificarPrecio");
 
 formModificarPrecio.addEventListener("submit", e => {
     e.preventDefault();
+    console.log("Formulario enviado");
 
-    const nombreProducto = document.querySelector('#Producto').value;
+    const nombreProducto = document.querySelector('#ProductoModificar').value;
     const nuevoPrecio = document.querySelector('#nuevoPrecio').value;
 
     if (!isNaN(nuevoPrecio) && nombreProducto) {
@@ -18,15 +19,38 @@ formModificarPrecio.addEventListener("submit", e => {
             const precioAntiguo = productoPorNombre.precio;
             const resultado = calcularPorcentaje(precioAntiguo, nuevoPrecio);
             productoPorNombre.precio = nuevoPrecio;
+            
+            localStorage.setItem('productos', JSON.stringify(productos));
 
-            alert('Precio actualizado con éxito.\nEl aumento es de ' + resultado + '%');
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Precio actualizado con éxito.\nEl aumento es de ' + resultado + '%',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            
+            document.querySelector("#ProductoModificar").value = "";
+            document.querySelector("#nuevoPrecio").value = "";
+
+            refrescar();           
         } else {
-            alert("No se encontró ningún producto con el nombre indicado.");
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: "No se encontró ningún producto con el nombre indicado.",
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     } else {
-        alert("Por favor, ingresa un nombre de producto y un precio válido.");
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: "Por favor, ingresa un nombre de producto y un precio válido.",
+            showConfirmButton: false,
+            timer: 1500
+        })
     }
-
-    
 });
-                     
+
