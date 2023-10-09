@@ -1,3 +1,14 @@
+// variables
+const form = document.querySelector("#formProducto");
+const inputProducto = document.querySelector('#Producto')
+const inputPrecio = document.querySelector('#Precio')
+const listaProductos = document.getElementById("lista-productos");
+let productos = [];
+const jsonAlmacenados = localStorage.getItem('productos')
+
+
+
+// Crear producto en inventario
 class Producto {
     constructor(nombre, precio){
         this.nombre = nombre
@@ -17,25 +28,19 @@ function refrescar() {
 function eliminarProducto(producto) {
     const indice = productos.indexOf(producto);
     if (indice !== -1) {
-        productos.splice(indice, 1); 
-        refrescar(); 
+        productos.splice(indice, 1);
+        localStorage.setItem('productos', JSON.stringify(productos)); // Actualiza localStorage
+        refrescar();
     }
 }
 
 
+// almacenamiento de datos
 
-const form = document.querySelector("#formulario");
-const inputProducto = document.querySelector('#Producto')
-const inputPrecio = document.querySelector('#Precio')
-const listaProductos = document.getElementById("lista-productos");
-let productos = [];
-const jsonAlmacenados = localStorage.getItem('productos')
 if (jsonAlmacenados){
     productos = JSON.parse(jsonAlmacenados)
+    refrescar()
 }
-refrescar()
-
-
 
 form.addEventListener("submit", e => {
     e.preventDefault()
@@ -46,13 +51,15 @@ form.addEventListener("submit", e => {
         productos.push(prod);
         localStorage.setItem('productos', JSON.stringify(productos))
         agregarProductoALista(prod);
-        refrescar()
         inputProducto.value = "";
         inputPrecio.value = "";
     } else {
         alert("Por favor, ingresa un producto y un precio válido.");
     }
+    refrescar()
 });
+
+// agregar producto en catalogo
 
 function agregarProductoALista(producto) {
     const li = document.createElement("li");
@@ -83,7 +90,6 @@ function agregarProductoALista(producto) {
 
     return li;
 }
-
 
 
 
