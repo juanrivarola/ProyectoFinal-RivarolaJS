@@ -4,9 +4,13 @@
     background-color: rgb(12, 12, 12);
     width: 100%;
     border: 0.5px solid rgb(226, 226, 226);
+    display: flex;
+    justify-content: center;
+    
   }
   .navbar ul {
     display: flex;
+    margin-top: 10px;
   }
   .navbar li {
     margin: 10px;
@@ -16,6 +20,7 @@
     color: rgb(226, 226, 226);
     text-decoration: none;
     font-size: 1.5em;
+    
   }
 
 
@@ -51,9 +56,9 @@
 }
 
 ul{
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 #Inventario {
